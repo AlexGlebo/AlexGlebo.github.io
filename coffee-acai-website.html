@@ -1,0 +1,821 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Raritan's Coffee & Acai</title>
+    <style>
+        :root {
+            --primary: #8e44ad;
+            --secondary: #3498db;
+            --accent: #9b59b6;
+            --light: #f5f5f5;
+            --dark: #2c3e50;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: var(--light);
+            color: var(--dark);
+            line-height: 1.6;
+        }
+        
+        header {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            text-align: center;
+            padding: 2rem 1rem;
+            position: relative;
+        }
+        
+        .hero-image {
+            width: 100%;
+            height: 300px;
+            background-image: url('/api/placeholder/1200/400');
+            background-size: cover;
+            background-position: center;
+            margin-bottom: 2rem;
+        }
+        
+        .logo {
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+        }
+        
+        .tagline {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+        }
+        
+        nav {
+            background-color: white;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+        
+        .nav-logo {
+            font-weight: bold;
+            font-size: 1.5rem;
+            color: var(--primary);
+            padding: 1rem 0;
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+        
+        .nav-links li a {
+            display: inline-block;
+            padding: 1rem;
+            text-decoration: none;
+            color: var(--dark);
+            transition: color 0.3s;
+        }
+        
+        .nav-links li a:hover {
+            color: var(--primary);
+        }
+        
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--dark);
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem 1rem;
+        }
+        
+        .section-title {
+            font-size: 2rem;
+            text-align: center;
+            margin-bottom: 2rem;
+            color: var(--primary);
+        }
+        
+        .about-section {
+            display: flex;
+            align-items: center;
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+        
+        .about-content {
+            flex: 1;
+        }
+        
+        .about-image {
+            flex: 1;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .about-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+        
+        .menu-section {
+            margin-bottom: 3rem;
+        }
+        
+        .menu-tabs {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+        
+        .menu-tab {
+            padding: 0.75rem 1.5rem;
+            margin: 0 0.5rem 0.5rem;
+            background-color: white;
+            border: 1px solid #ddd;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .menu-tab:hover {
+            background-color: #f0f0f0;
+        }
+        
+        .menu-tab.active {
+            background-color: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+        
+        .menu-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        
+        .menu-category {
+            display: none;
+        }
+        
+        .menu-category.active {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+            width: 100%;
+        }
+        
+        .menu-item {
+            background-color: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+        }
+        
+        .menu-item:hover {
+            transform: translateY(-5px);
+        }
+        
+        .menu-item-image {
+            width: 100%;
+            height: 200px;
+            background-color: #f0f0f0;
+            background-size: cover;
+            background-position: center;
+        }
+        
+        .menu-item-content {
+            padding: 1.5rem;
+        }
+        
+        .menu-item-title {
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+            display: flex;
+            justify-content: space-between;
+        }
+        
+        .menu-item-price {
+            color: var(--primary);
+            font-weight: bold;
+        }
+        
+        .menu-item-description {
+            color: #666;
+            font-size: 0.9rem;
+        }
+        
+        .contact-section {
+            margin-bottom: 3rem;
+        }
+        
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+        }
+        
+        .contact-info {
+            padding: 2rem;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+        }
+        
+        .contact-info h3 {
+            margin-bottom: 1rem;
+            color: var(--primary);
+        }
+        
+        .contact-info p {
+            margin-bottom: 1rem;
+        }
+        
+        .contact-form {
+            padding: 2rem;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+        }
+        
+        .form-group {
+            margin-bottom: 1rem;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+        
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+        
+        .form-group textarea {
+            min-height: 150px;
+            resize: vertical;
+        }
+        
+        .submit-btn {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: background-color 0.3s;
+        }
+        
+        .submit-btn:hover {
+            background-color: var(--accent);
+        }
+        
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+        
+        .social-link {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background-color: var(--primary);
+            color: white;
+            border-radius: 50%;
+            text-decoration: none;
+            transition: background-color 0.3s;
+        }
+        
+        .social-link:hover {
+            background-color: var(--accent);
+        }
+        
+        footer {
+            background-color: var(--dark);
+            color: white;
+            text-align: center;
+            padding: 2rem 1rem;
+        }
+        
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .footer-logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+        }
+        
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .footer-links a {
+            color: white;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-links a:hover {
+            color: var(--secondary);
+        }
+        
+        .copyright {
+            font-size: 0.9rem;
+            color: #aaa;
+        }
+        
+        @media (max-width: 768px) {
+            .nav-links {
+                position: fixed;
+                top: 60px;
+                left: 0;
+                right: 0;
+                background-color: white;
+                flex-direction: column;
+                height: 0;
+                overflow: hidden;
+                transition: height 0.3s;
+                box-shadow: 0 5px 5px rgba(0,0,0,0.1);
+            }
+            
+            .nav-links.active {
+                height: auto;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            .about-section {
+                flex-direction: column;
+            }
+            
+            .contact-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">Raritan's Coffee & Acai</div>
+        <div class="tagline">Fresh Colombian Coffee & Delicious Acai Bowls</div>
+    </header>
+    
+    <nav>
+        <div class="nav-container">
+            <div class="nav-logo">RC&A</div>
+            <button class="mobile-menu-btn">☰</button>
+            <ul class="nav-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#about">About Us</a></li>
+                <li><a href="#menu">Menu</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+    
+    <div class="hero-image"></div>
+    
+    <section id="about" class="about-section container">
+        <div class="about-content">
+            <h2 class="section-title">About Us</h2>
+            <p>Welcome to Raritan's Coffee & Acai, where we bring the rich flavors of authentic Colombian coffee and fresh acai bowls to Raritan, NJ. Our passion for quality beverages and nutritious foods drives everything we do.</p>
+            <p>We pride ourselves on using only the finest ingredients, from our freshly brewed Colombian coffee to our delicious acai bowls topped with fresh fruits and premium toppings.</p>
+            <p>Whether you're stopping by for your morning coffee, a nutritious acai bowl, or one of our famous Colombian empanadas, we're dedicated to providing you with an exceptional experience every time you visit.</p>
+        </div>
+        <div class="about-image">
+            <img src="/api/placeholder/600/400" alt="Raritan's Coffee & Acai interior">
+        </div>
+    </section>
+    
+    <section id="menu" class="menu-section container">
+        <h2 class="section-title">Our Menu</h2>
+        
+        <div class="menu-tabs">
+            <div class="menu-tab active" data-category="acai">Acai & Fruit Bowls</div>
+            <div class="menu-tab" data-category="bread">Bread & Desserts</div>
+            <div class="menu-tab" data-category="empanadas">Empanadas & Arepas</div>
+            <div class="menu-tab" data-category="hot-drinks">Hot Drinks</div>
+            <div class="menu-tab" data-category="cold-drinks">Cold Drinks</div>
+            <div class="menu-tab" data-category="snacks">Snacks</div>
+        </div>
+        
+        <div class="menu-content">
+            <!-- Acai & Fruit Bowls -->
+            <div class="menu-category active" id="acai">
+                <div class="menu-item">
+                    <div class="menu-item-image" style="background-image: url('/api/placeholder/400/320')"></div>
+                    <div class="menu-item-content">
+                        <div class="menu-item-title">
+                            <span>Acai Bowl</span>
+                            <span class="menu-item-price">$12.99</span>
+                        </div>
+                        <p class="menu-item-description">Our signature acai bowl topped with fresh fruits, granola, and honey.</p>
+                    </div>
+                </div>
+                
+                <div class="menu-item">
+                    <div class="menu-item-image" style="background-image: url('/api/placeholder/400/320')"></div>
+                    <div class="menu-item-content">
+                        <div class="menu-item-title">
+                            <span>Coconut Bowl</span>
+                            <span class="menu-item-price">$12.99</span>
+                        </div>
+                        <p class="menu-item-description">Refreshing coconut bowl with tropical toppings.</p>
+                    </div>
+                </div>
+                
+                <div class="menu-item">
+                    <div class="menu-item-image" style="background-image: url('/api/placeholder/400/320')"></div>
+                    <div class="menu-item-content">
+                        <div class="menu-item-title">
+                            <span>Mango Bowl</span>
+                            <span class="menu-item-price">$12.99</span>
+                        </div>
+                        <p class="menu-item-description">Sweet mango bowl topped with fresh fruits and granola.</p>
+                    </div>
+                </div>
+                
+                <div class="menu-item">
+                    <div class="menu-item-image" style="background-image: url('/api/placeholder/400/320')"></div>
+                    <div class="menu-item-content">
+                        <div class="menu-item-title">
+                            <span>Pitaya Bowl</span>
+                            <span class="menu-item-price">$12.99</span>
+                        </div>
+                        <p class="menu-item-description">Vibrant dragon fruit bowl with premium toppings.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Bread & Desserts -->
+            <div class="menu-category" id="bread">
+                <div class="menu-item">
+                    <div class="menu-item-image" style="background-image: url('/api/placeholder/400/320')"></div>
+                    <div class="menu-item-content">
+                        <div class="menu-item-title">
+                            <span>Bono Bread</span>
+                            <span class="menu-item-price">$2.50</span>
+                        </div>
+                        <p class="menu-item-description">Traditional Colombian bread roll.</p>
+                    </div>
+                </div>
+                
+                <div class="menu-item">
+                    <div class="menu-item-image" style="background-image: url('/api/placeholder/400/320')"></div>
+                    <div class="menu-item-content">
+                        <div class="menu-item-title">
+                            <span>Cheese Bread</span>
+                            <span class="menu-item-price">$2.50</span>
+                        </div>
+                        <p class="menu-item-description">Soft bread filled with delicious cheese.</p>
+                    </div>
+                </div>
+                
+                <div class="menu-item">
+                    <div class="menu-item-image" style="background-image: url('/api/placeholder/400/320')"></div>
+                    <div class="menu-item-content">
+                        <div class="menu-item-title">
+                            <span>Cake Bread with Guava</span>
+                            <span class="menu-item-price">$6.99</span>
+                        </div>
+                        <p class="menu-item-description">Homemade cake bread with sweet guava filling.</p>
+                    </div>
+                </div>
+                
+                <div class="menu-item">
+                    <div class="menu-item-image" style="background-image: url('/api/placeholder/400/320')"></div>
+                    <div class="menu-item-content">
+                        <div class="menu-item-title">
+                            <span>Plain Croissant</span>
+                            <span class="menu-item-price">$1.99</span>
+                        </div>
+                        <p class="menu-item-description">Buttery, flaky classic croissant.</p>
+                    </div>
+                </div>
+                
+                <div class="menu-item">
+                    <div class="menu-item-image" style="background-image: url('/api/placeholder/400/320')"></div>
+                    <div class="menu-item-content">
+                        <div class="menu-item-title">
+                            <span>Chocolate Croissant</span>
+                            <span class="menu-item-price">$1.99</span>
+                        </div>
+                        <p class="menu-item-description">Flaky croissant with chocolate filling.</p>
+                    </div>
+                </div>
+                
+                <div class="menu-item">
+                    <div class="menu-item-image" style="background-image: url('/api/placeholder/400/320')"></div>
+                    <div class="menu-item-content">
+                        <div class="menu-item-title">
+                            <span>Waffle Bono</span>
+                            <span class="menu-item-price">$16.99</span>
+                        </div>
+                        <p class="menu-item-description">Special waffle served with various toppings.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Empanadas & Arepas -->
+            <div class="menu-category" id="empanadas">
+                <div class="menu-item">
+                    <div class="menu-item-image" style="background-image: url('/api/placeholder/400/320')"></div>
+                    <div class="menu-item-content">
+                        <div class="menu-item-title">
+                            <span>Chicken Empanada</span>
+                            <span class="menu-item-price">$2.49</span>
+                        </div>
+                        <p class="menu-item-description">Traditional Colombian empanada filled with seasoned chicken.</p>
+                    </div>
+                </div>
+                
+                <div class="menu-item">
+                    <div class="menu-item-image" style="background-image: url('/api/placeholder/400/320')"></div>
+                    <div class="menu-item-content">
+                        <div class="menu-item-title">
+                            <span>Beef Empanada</span>
+                            <span class="menu-item-price">$2.49</span>
+                        </div>
+                        <p class="menu-item-description">Crispy empanada with flavorful beef filling.</p>
+                    </div>
+                </div>
+                
+                <div class="menu-item">
+                    <div class="menu-item-image" style="background-image: url('/api/placeholder/400/320')"></div>
+                    <div class="menu-item-content">
+                        <div class="menu-item-title">
+                            <span>Corn Arepa with Cheese</span>
+                            <span class="menu-item-price">$5.99</span>
+                        </div>
+                        <p class="menu-item-description">Traditional Colombian corn cake filled with cheese.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Hot Drinks -->
+            <div class="menu-category" id="hot-drinks">
+                <div class="menu-item">
+                    <div class="menu-item-image" style="background-image: url('/api/placeholder/400/320')"></div>
+                    <div class="menu-item-content">
+                        <div class="menu-item-title">
+                            <span>Colombian Coffee</span>
+                            <span class="menu-item-price">$1.99</span>
+                        </div>
+                        <p class="menu-item-description">Rich and aromatic authentic Colombian coffee.</p>
+                    </div>
+                </div>
+                
+                <div class="menu-item">
+                    <div class="menu-item-image" style="background-image: url('/api/placeholder/400/320')"></div>
+                    <div class="menu-item-content">
+                        <div class="menu-item-title">
+                            <span>Tea</span>
+                            <span class="menu-item-price">$1.99</span>
+                        </div>
+                        <p class="menu-item-description">Selection of premium teas.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Cold Drinks -->
+            <div class="menu-category" id="cold-drinks">
+                <div class="menu-item">
+                    <div class="menu-item-image" style="background-image: url('/api/placeholder/400/320')"></div>
+                    <div class="menu-item-content">
+                        <div class="menu-item-title">
+                            <span>Fresh Squeeze Orange Juice</span>
+                            <span class="menu-item-price">$6.99</span>
+                        </div>
+                        <p class="menu-item-description">Freshly squeezed orange juice.</p>
+                    </div>
+                </div>
+                
+                <div class="menu-item">
+                    <div class="menu-item-image" style="background-image: url('/api/placeholder/400/320')"></div>
+                    <div class="menu-item-content">
+                        <div class="menu-item-title">
+                            <span>Fruit Juice</span>
+                            <span class="menu-item-price">$4.99</span>
+                        </div>
+                        <p class="menu-item-description">Selection of natural fruit juices.</p>
+                    </div>
+                </div>
+                
+                <div class="menu-item">
+                    <div class="menu-item-image" style="background-image: url('/api/placeholder/400/320')"></div>
+                    <div class="menu-item-content">
+                        <div class="menu-item-title">
+                            <span>Fruit Smoothie</span>
+                            <span class="menu-item-price">$6.99</span>
+                        </div>
+                        <p class="menu-item-description">Refreshing fruit smoothie made with fresh fruits.</p>
+                    </div>
+                </div>
+                
+                <div class="menu-item">
+                    <div class="menu-item-image" style="background-image: url('/api/placeholder/400/320')"></div>
+                    <div class="menu-item-content">
+                        <div class="menu-item-title">
+                            <span>Iced Coffee</span>
+                            <span class="menu-item-price">$3.99</span>
+                        </div>
+                        <p class="menu-item-description">Chilled Colombian coffee served over ice.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Snacks -->
+            <div class="menu-category" id="snacks">
+                <div class="menu-item">
+                    <div class="menu-item-image" style="background-image: url('/api/placeholder/400/320')"></div>
+                    <div class="menu-item-content">
+                        <div class="menu-item-title">
+                            <span>Blueberry Mix Cookie</span>
+                            <span class="menu-item-price">$3.99</span>
+                        </div>
+                        <p class="menu-item-description">Homemade cookie with blueberries and other mix-ins.</p>
+                    </div>
+                </div>
+                
+                <div class="menu-item">
+                    <div class="menu-item-image" style="background-image: url('/api/placeholder/400/320')"></div>
+                    <div class="menu-item-content">
+                        <div class="menu-item-title">
+                            <span>Chips</span>
+                            <span class="menu-item-price">$2.99</span>
+                        </div>
+                        <p class="menu-item-description">Assorted chips selection.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section id="contact" class="contact-section container">
+        <h2 class="section-title">Contact Us</h2>
+        
+        <div class="contact-grid">
+            <div class="contact-info">
+                <h3>Visit Us</h3>
+                <p>123 Main Street<br>Raritan, NJ 08869</p>
+                
+                <h3>Hours</h3>
+                <p>
+                    Monday - Friday: 7:00 AM - 7:00 PM<br>
+                    Saturday: 8:00 AM - 7:00 PM<br>
+                    Sunday: 9:00 AM - 5:00 PM
+                </p>
+                
+                <h3>Call Us</h3>
+                <p>(908) 555-1234</p>
+                
+                <h3>Email</h3>
+                <p>info@raritancoffeeacai.com</p>
+                
+                <div class="social-links">
+                    <a href="#" class="social-link">f</a>
+                    <a href="#" class="social-link">in</a>
+                    <a href="#" class="social-link">ig</a>
+                </div>
+            </div>
+            
+            <div class="contact-form">
+                <h3>Send Us a Message</h3>
+                <form>
+                    <div class="form-group">
+                        <label for="name">Name</label>
+                        <input type="text" id="name" name="name" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="message">Message</label>
+                        <textarea id="message" name="message" required></textarea>
+                    </div>
+                    
+                    <button type="submit" class="submit-btn">Send Message</button>
+                </form>
+            </div>
+        </div>
+    </section>
+    
+    <footer>
+        <div class="footer-content">
+            <div class="footer-logo">Raritan's Coffee & Acai</div>
+            
+            <div class="footer-links">
+                <a href="#home">Home</a>
+                <a href="#about">About</a>
+                <a href="#menu">Menu</a>
+                <a href="#contact">Contact</a>
+            </div>
+            
+            <div class="copyright">
+                &copy; 2025 Raritan's Coffee & Acai. All rights reserved.
+            </div>
+        </div>
+    </footer>
+    
+    <script>
+        // Mobile Menu Toggle
+        const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+        const navLinks = document.querySelector('.nav-links');
+        
+        mobileMenuBtn.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+        });
+        
+        // Menu Tabs
+        const menuTabs = document.querySelectorAll('.menu-tab');
+        const menuCategories = document.querySelectorAll('.menu-category');
+        
+        menuTabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                // Remove active class from all tabs
+                menuTabs.forEach(t => t.classList.remove('active'));
+                
+                // Add active class to clicked tab
+                tab.classList.add('active');
+                
+                // Show corresponding category
+                const category = tab.getAttribute('data-category');
+                
+                menuCategories.forEach(cat => {
+                    cat.classList.remove('active');
+                    if (cat.id === category) {
+                        cat.classList.add('active');
+                    }
+                });
+            });
+        });
+        
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 60,
+                        behavior: 'smooth'
+                    });
+                    
+                    // Close mobile menu if open
+                    navLinks.classList.remove('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
