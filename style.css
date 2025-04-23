@@ -275,6 +275,8 @@ nav {
     flex: 1 1 300px; /* Grow, shrink, base size */
     max-width: 400px; /* Limit image size */
     height: auto;
+    display: block;
+    margin: 0 auto;
 }
 
 .about-content p {
