@@ -1,4 +1,7 @@
 /* Basic Reset & Global Styles */
+html {
+    overflow-x: hidden;
+}
 * {
     margin: 0;
     padding: 0;
@@ -352,6 +355,8 @@ footer {
         transform: translateX(100%);
         transition: transform 0.5s ease-in;
         box-shadow: -2px 0 5px rgba(0,0,0,0.1);
+        justify-content: flex-start;
+        padding-top: 20px;
     }
 
     .nav-links li {
