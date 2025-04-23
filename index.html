@@ -642,6 +642,159 @@
         </div>
     </section>
     
+    <footer>
+        <div class="footer-content">
+            <div class="footer-logo">Raritan's Coffee & Acai</div>
+            
+            <div class="footer-links">
+                <a href="#home">Home</a>
+                <a href="#about">About</a>
+                <a href="#menu">Menu</a>
+                <a href="#contact">Contact</a>
+            </div>
+            
+            <div class="copyright">
+                &copy; 2025 Raritan's Coffee & Acai. All rights reserved.
+            </div>
+        </div>
+    </footer>
+    
+    <a href="tel:9085551234" class="mobile-cta" aria-label="Call us">📞</a>
+    
+    <script>
+        // Mobile Menu Toggle with improved touch handling
+        const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+        const navLinks = document.querySelector('.nav-links');
+        
+        mobileMenuBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            navLinks.classList.toggle('active');
+            
+            // Toggle between menu and close icons
+            if (mobileMenuBtn.innerHTML === '☰') {
+                mobileMenuBtn.innerHTML = '✕';
+            } else {
+                mobileMenuBtn.innerHTML = '☰';
+            }
+        });
+        
+        // Close menu when clicking outside
+        document.addEventListener('click', (e) => {
+            if (navLinks.classList.contains('active') && 
+                !e.target.closest('.nav-links') && 
+                !e.target.closest('.mobile-menu-btn')) {
+                navLinks.classList.remove('active');
+                mobileMenuBtn.innerHTML = '☰';
+            }
+        });
+        
+        // Menu Tabs with improved scrolling
+        const menuTabs = document.querySelectorAll('.menu-tab');
+        const menuCategories = document.querySelectorAll('.menu-category');
+        const tabsContainer = document.querySelector('.menu-tabs');
+        
+        // Center active tab when clicked
+        function centerActiveTab(tab) {
+            if (window.innerWidth <= 768) {
+                const tabsRect = tabsContainer.getBoundingClientRect();
+                const tabRect = tab.getBoundingClientRect();
+                const offset = tabRect.left + tabRect.width / 2 - tabsRect.left - tabsRect.width / 2;
+                
+                tabsContainer.scrollBy({
+                    left: offset,
+                    behavior: 'smooth'
+                });
+            }
+        }
+        
+        menuTabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                // Remove active class from all tabs
+                menuTabs.forEach(t => t.classList.remove('active'));
+                
+                // Add active class to clicked tab
+                tab.classList.add('active');
+                
+                // Center the tab in the scrollable container
+                centerActiveTab(tab);
+                
+                // Show corresponding category
+                const category = tab.getAttribute('data-category');
+                
+                menuCategories.forEach(cat => {
+                    cat.classList.remove('active');
+                    if (cat.id === category) {
+                        cat.classList.add('active');
+                    }
+                });
+            });
+        });
+        
+        // Smooth scrolling for anchor links with improved mobile experience
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                
+                if (targetElement) {
+                    // Adding extra offset on mobile for better visibility
+                    const offset = window.innerWidth <= 768 ? 80 : 60;
+                    
+                    window.scrollTo({
+                        top: targetElement.offsetTop - offset,
+                        behavior: 'smooth'
+                    });
+                    
+                    // Close mobile menu if open
+                    navLinks.classList.remove('active');
+                    if (mobileMenuBtn.innerHTML === '✕') {
+                        mobileMenuBtn.innerHTML = '☰';
+                    }
+                }
+            });
+        });
+        
+        // Add tap/click feedback for menu items on mobile
+        if (window.innerWidth <= 768) {
+            const menuItems = document.querySelectorAll('.menu-item');
+            
+            menuItems.forEach(item => {
+                item.addEventListener('touchstart', function() {
+                    this.style.backgroundColor = '#f9f9f9';
+                });
+                
+                item.addEventListener('touchend', function() {
+                    setTimeout(() => {
+                        this.style.backgroundColor = 'white';
+                    }, 150);
+                });
+            });
+        }
+        
+        // Simple form validation - prevent empty submissions
+        const contactForm = document.querySelector('.contact-form form');
+        if (contactForm) {
+            contactForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                const nameField = document.getElementById('name');
+                const emailField = document.getElementById('email');
+                const messageField = document.getElementById('message');
+                
+                if (nameField.value.trim() === '' || 
+                    emailField.value.trim() === '' || 
+                    messageField.value.trim() === '') {
+                    alert('Please fill in all fields');
+                    return;
+                }
+                
+                alert('Message sent! We will contact you soon.');
+                this.reset();
+            });
+        }
+    </script>
+    
     <section id="menu" class="menu-section container">
         <h2 class="section-title">Our Menu</h2>
         
@@ -659,6 +812,39 @@
             <div class="menu-category active" id="acai">
                 <div class="menu-item">
                     <div class="menu-item-image" style="background-image: url('/api/placeholder/400/320')"></div>
+                    <div class="menu-item-content">
+                        <div class="menu-item-title">
+                            <span>Iced Coffee</span>
+                            <span class="menu-item-price">$3.99</span>
+                        </div>
+                        <p class="menu-item-description">Chilled Colombian coffee served over ice.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Snacks -->
+            <div class="menu-category" id="snacks">
+                <div class="menu-item">
+                    <div class="menu-item-image" style="background-image: url('/api/placeholder/400/320')"></div>
+                    <div class="menu-item-content">
+                        <div class="menu-item-title">
+                            <span>Blueberry Mix Cookie</span>
+                            <span class="menu-item-price">$3.99</span>
+                        </div>
+                        <p class="menu-item-description">Homemade cookie with blueberries and other mix-ins.</p>
+                    </div>
+                </div>
+                
+                <div class="menu-item">
+                    <div class="menu-item-image" style="background-image: url('/api/placeholder/400/320')"></div>
+                    <div class="menu-item-content">
+                        <div class="menu-item-title">
+                            <span>Chips</span>
+                            <span class="menu-item-price">$2.99</span>
+                        </div>
+                        <p class="menu-item-description">Assorted chips selection.</p>
+                    </div>
+                </div>
                     <div class="menu-item-content">
                         <div class="menu-item-title">
                             <span>Acai Bowl</span>
@@ -868,3 +1054,4 @@
                 </div>
                 
                 <div class="menu-item">
+                    <div class="menu-item-image" style="background-image: url('/api/placeholder/400/320')"></div>
