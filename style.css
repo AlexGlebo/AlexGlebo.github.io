@@ -345,7 +345,7 @@ footer {
     .nav-links {
         position: absolute;
         right: 0px;
-        height: 92vh;
+        /*height: 92vh; */
         top: 8vh;
         background-color: #fff;
         display: flex;
@@ -357,6 +357,7 @@ footer {
         box-shadow: -2px 0 5px rgba(0,0,0,0.1);
         justify-content: flex-start;
         padding-top: 20px;
+        padding-bottom: 20px;
     }
 
     .nav-links li {
