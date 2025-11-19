@@ -11,6 +11,10 @@
             box-sizing: border-box;
         }
 
+        html {
+            scroll-behavior: smooth;
+        }
+
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background-color: #0a0a0a;
@@ -18,16 +22,65 @@
             line-height: 1.6;
         }
 
+        /* Navigation */
+        .nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            background: rgba(10, 10, 10, 0.95);
+            border-bottom: 1px solid #222;
+            padding: 1rem 2rem;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-logo {
+            font-size: 1rem;
+            font-weight: 600;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: #f5f5f5;
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: #888;
+            text-decoration: none;
+            font-size: 0.85rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: #f5f5f5;
+        }
+
         /* Hero Banner */
         .hero {
             position: relative;
-            height: 60vh;
-            min-height: 400px;
+            height: 40vh;
+            min-height: 280px;
             display: flex;
             align-items: center;
             justify-content: center;
             background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 50%, #1a1a1a 100%);
             overflow: hidden;
+            padding-top: 60px;
         }
 
         .hero::before {
@@ -278,6 +331,18 @@
         }
 
         @media (max-width: 768px) {
+            .nav-links {
+                gap: 1rem;
+            }
+
+            .nav-links a {
+                font-size: 0.7rem;
+            }
+
+            .nav-logo {
+                font-size: 0.85rem;
+            }
+
             .hero h1 {
                 font-size: 2rem;
                 letter-spacing: 0.2em;
@@ -307,8 +372,20 @@
 </head>
 <body>
 
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="nav-container">
+            <a href="#hero" class="nav-logo">Skel.Col</a>
+            <ul class="nav-links">
+                <li><a href="#products">Shop</a></li>
+                <li><a href="#story">Our Story</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
     <!-- Hero Banner -->
-    <section class="hero">
+    <section class="hero" id="hero">
         <div class="hero-content">
             <h1>Skeleton Collective</h1>
             <button class="cta">Help us make our next Project</button>
@@ -316,7 +393,7 @@
     </section>
 
     <!-- Products Section -->
-    <section class="products">
+    <section class="products" id="products">
         <div class="products-container">
             <!-- Actor -->
             <div class="product-card">
@@ -356,7 +433,7 @@
     </section>
 
     <!-- Copy Section -->
-    <section class="copy-section">
+    <section class="copy-section" id="story">
         <div class="copy-content">
             <h2>Our Story</h2>
             <p>
@@ -378,7 +455,7 @@
     </section>
 
     <!-- Comments Section -->
-    <section class="comments-section">
+    <section class="comments-section" id="contact">
         <div class="comments-container">
             <h2>Share Your Thoughts</h2>
             <form action="https://formsubmit.co/skeletoncol.1@gmail.com" method="POST">
